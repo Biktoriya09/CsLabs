@@ -1,10 +1,12 @@
-﻿namespace sem_1_lab_02_server_config
+﻿using System;
+
+namespace sem1Lab02
 {
-    internal class Program
+    public class Program
     {
         public static string CheckConfiguration(int players, int memory, bool isPublic, bool hasPassword)
         {
-            if (players <= 0)
+            if (players < 0)
             {
                 return "Запуск невозможен: количество игроков должно быть больше нуля.";
             }
@@ -14,12 +16,12 @@
                 return "Запуск невозможен: серверу недостаточно оперативной памяти.";
             }
 
-            if (isPublic == true && hasPassword == true)
+            if (isPublic && hasPassword)
             {
                 return "Запуск возможен с предупреждением: публичный сервер защищён паролем.";
             }
 
-            if (players > 100 && memory < 8)
+            if (memory * 25 < players)
             {
                 return "Запуск возможен с предупреждением: для такого количества игроков рекомендуется больше оперативной памяти.";
             }
@@ -27,18 +29,27 @@
             return "Сервер готов к запуску.";
         }
 
-        static void Main()
+        public static void Main()
         {
-            int players = 50;
-            int memory = 8;
-            bool isPublic = true;
-            bool hasPassword = false;
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            Console.WriteLine("Проверка конфигурации сервера");
-            Console.WriteLine($"Игроков: {players}");
-            Console.WriteLine($"Память: {memory}");
-            Console.WriteLine($"Публичный: {isPublic}");
-            Console.WriteLine($"Есть пароль: {hasPassword}");
+            Console.WriteLine("=========================================");
+            Console.WriteLine("    ПРОВЕРКА КОНФИГУРАЦИИ СЕРВЕРА");
+            Console.WriteLine("=========================================");
+            Console.WriteLine();
+
+            Console.Write("Количество игроков: ");
+            int players = int.Parse(Console.ReadLine());
+
+            Console.Write("Оперативной памяти (ГБ): ");
+            int memory = int.Parse(Console.ReadLine());
+
+            Console.Write("Сервер публичный? (да/нет): ");
+            bool isPublic = Console.ReadLine().ToLower() == "да";
+
+            Console.Write("Пароль установлен? (да/нет): ");
+            bool hasPassword = Console.ReadLine().ToLower() == "да";
+
             Console.WriteLine();
 
             string result = CheckConfiguration(players, memory, isPublic, hasPassword);
@@ -46,6 +57,3 @@
         }
     }
 }
-
-
-
