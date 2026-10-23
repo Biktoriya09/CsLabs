@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../ExampleTests/ExampleTests.csproj" />
+  <Project Path="sem-1-lab-04-event-log.csproj" />
+</Solution>
